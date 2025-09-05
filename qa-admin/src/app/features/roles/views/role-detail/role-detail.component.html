@@ -1,0 +1,7 @@
+<div *ngIf="vm$ | async as vm">
+  <h2>Role: {{vm.role?.name}}</h2>
+  <div class="perms">
+    <mat-checkbox *ngFor="let p of vm.perms" [checked]="vm.role?.permissionIds?.includes(p.id)" (change)="onToggle(vm.role!.id, p.id, $event.checked)">{{p.name}}</mat-checkbox>
+  </div>
+</div>
+

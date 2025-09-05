@@ -1,0 +1,22 @@
+<mat-sidenav-container class="root">
+  <mat-sidenav mode="side" [opened]="isOpened" class="sidenav">
+    <div class="logo">QA Admin</div>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard/tests">Test Suites</a>
+      <a mat-list-item routerLink="/dashboard/users">User Management</a>
+      <a mat-list-item routerLink="/dashboard/roles">Role Management</a>
+      <a mat-list-item routerLink="/dashboard/permissions">Permissions</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="toolbar">
+      <span>QA Admin Portal</span>
+      <span class="spacer"></span>
+      <button mat-button>Logout</button>
+    </mat-toolbar>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
