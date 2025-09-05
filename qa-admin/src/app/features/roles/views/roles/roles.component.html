@@ -1,0 +1,10 @@
+<div class="header">
+  <h2>Roles</h2>
+  <span class="spacer"></span>
+  <button mat-raised-button color="primary" (click)="addRole()">+ Add New</button>
+</div>
+
+<div class="roles" *ngIf="roles$ | async as roles">
+  <button mat-stroked-button *ngFor="let r of roles" (click)="openRole(r)">{{r.name}}</button>
+</div>
+

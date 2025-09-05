@@ -1,0 +1,19 @@
+<div class="header">
+  <h2>Test Suites</h2>
+  <button mat-raised-button color="primary" (click)="addSuite()">+ Add Suite</button>
+  <span class="spacer"></span>
+</div>
+
+<div class="suites" *ngIf="vm$ | async as vm">
+  <div class="suite" *ngFor="let suite of vm">
+    <div class="suite-header">
+      <h3>{{suite.name}}</h3>
+      <button mat-stroked-button color="primary" (click)="addCase(suite)">+ Add Case</button>
+    </div>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let c of suite.cases" (click)="openCase(suite, c)">{{c?.name}}</a>
+    </mat-nav-list>
+  </div>
+  
+</div>
+

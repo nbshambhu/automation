@@ -1,0 +1,14 @@
+<div class="header">
+  <h2>Permissions</h2>
+  <span class="spacer"></span>
+  <mat-form-field appearance="outline">
+    <mat-label>Permission</mat-label>
+    <input matInput [(ngModel)]="newName" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="add()">Add</button>
+</div>
+
+<div class="list" *ngIf="permissions$ | async as perms">
+  <div *ngFor="let p of perms">- {{p.name}}</div>
+</div>
+

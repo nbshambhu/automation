@@ -1,0 +1,83 @@
+<div class="header">
+  <h2>Test Case</h2>
+  <span class="spacer"></span>
+  <button mat-stroked-button color="primary" (click)="toggleAll(true)">Select All</button>
+  <button mat-stroked-button (click)="toggleAll(false)">Clear</button>
+  <button mat-raised-button color="warn" (click)="removeSelected()">Delete Selected</button>
+  <button mat-raised-button color="primary" (click)="addRow()">Add Row</button>
+</div>
+
+<table mat-table [dataSource]="steps.controls" class="mat-elevation-z1 case-table">
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox [(ngModel)]="row.value.__selected"></mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="keyword">
+    <th mat-header-cell *matHeaderCellDef>Keyword</th>
+    <td mat-cell *matCellDef="let row; let i = index">
+      <mat-form-field appearance="outline"><mat-select [formControl]="row.controls.keyword">
+        <mat-option *ngFor="let k of keywords" [value]="k">{{k}}</mat-option>
+      </mat-select></mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="elementType">
+    <th mat-header-cell *matHeaderCellDef>Element Type</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-form-field appearance="outline"><mat-select [formControl]="row.controls.elementType">
+        <mat-option *ngFor="let t of elementTypes" [value]="t">{{t}}</mat-option>
+      </mat-select></mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="webElement">
+    <th mat-header-cell *matHeaderCellDef>Web Element</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-form-field appearance="outline"><input matInput [formControl]="row.controls.webElement" /></mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="elementValue">
+    <th mat-header-cell *matHeaderCellDef>Element Value</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-form-field appearance="outline"><input matInput [formControl]="row.controls.elementValue" /></mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="skip">
+    <th mat-header-cell *matHeaderCellDef>Skip</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox [formControl]="row.controls.skip"></mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-form-field appearance="outline" class="desc"><input matInput [formControl]="row.controls.description" /></mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="screenshot">
+    <th mat-header-cell *matHeaderCellDef>Screenshot</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox [formControl]="row.controls.screenshot"></mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row; let i = index">
+      <button mat-stroked-button (click)="addRow(i)">Add Below</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['select','keyword','elementType','webElement','elementValue','skip','description','screenshot','actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['select','keyword','elementType','webElement','elementValue','skip','description','screenshot','actions'];"></tr>
+</table>
+
