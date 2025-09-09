@@ -7,6 +7,39 @@
       <a mat-list-item routerLink="/dashboard/roles">Role Management</a>
       <a mat-list-item routerLink="/dashboard/permissions">Permissions</a>
     </mat-nav-list>
+
+    <div style="padding: 8px 16px; font-weight: 600;">Suites</div>
+    <div style="padding: 0 16px 8px 16px;">
+      <button mat-stroked-button color="primary" (click)="addSuite()">+ Add Suite</button>
+    </div>
+
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+        <div class="mat-tree-node">
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+            <mat-icon>folder</mat-icon>
+          </button>
+          <span style="cursor: default;">{{node.name}}</span>
+          <span class="spacer"></span>
+          <button mat-icon-button aria-label="Add case" (click)="addCase(node)"><mat-icon>add</mat-icon></button>
+          <button mat-icon-button aria-label="Rename suite" (click)="renameSuite(node)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button aria-label="Delete suite" (click)="deleteSuite(node)"><mat-icon>delete</mat-icon></button>
+        </div>
+        <div [class.tree-inset]="true">
+          <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+      </mat-nested-tree-node>
+
+      <mat-tree-node *matTreeNodeDef="let node">
+        <div class="mat-tree-node">
+          <mat-icon class="mat-icon-rtl-mirror">article</mat-icon>
+          <a style="margin-left: 8px; cursor: pointer;" (click)="openCase(node.suiteId, node)">{{node.name}}</a>
+          <span class="spacer"></span>
+          <button mat-icon-button aria-label="Rename case" (click)="renameCase(node)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button aria-label="Delete case" (click)="deleteCase(node.suiteId, node)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </mat-tree-node>
+    </mat-tree>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary" class="toolbar">
