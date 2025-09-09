@@ -41,6 +41,32 @@ export class MockDbService {
     this.suites$.next(this.suites$.value.map(s => s.id === suiteId ? { ...s, caseIds: s.caseIds.concat(id) } : s));
   }
 
+  renameSuite(suiteId: string, newName: string): void {
+    this.suites$.next(this.suites$.value.map(s => s.id === suiteId ? { ...s, name: newName } : s));
+  }
+
+  deleteSuite(suiteId: string): void {
+    const suite = this.suites$.value.find(s => s.id === suiteId);
+    // Remove suite
+    this.suites$.next(this.suites$.value.filter(s => s.id !== suiteId));
+    if (suite) {
+      // Delete cases that belonged exclusively to this suite
+      const caseIdsToDelete = new Set(suite.caseIds);
+      this.cases$.next(this.cases$.value.filter(c => !caseIdsToDelete.has(c.id)));
+    }
+  }
+
+  renameCase(caseId: string, newName: string): void {
+    this.cases$.next(this.cases$.value.map(c => c.id === caseId ? { ...c, name: newName } : c));
+  }
+
+  deleteCase(suiteId: string, caseId: string): void {
+    // Remove case from suite mapping
+    this.suites$.next(this.suites$.value.map(s => s.id === suiteId ? { ...s, caseIds: s.caseIds.filter(id => id !== caseId) } : s));
+    // Remove case entity
+    this.cases$.next(this.cases$.value.filter(c => c.id !== caseId));
+  }
+
   addRole(name: string): void {
     const id = name.toLowerCase().replace(/\s+/g, '_');
     this.roles$.next(this.roles$.value.concat({ id, name, permissionIds: [] }));

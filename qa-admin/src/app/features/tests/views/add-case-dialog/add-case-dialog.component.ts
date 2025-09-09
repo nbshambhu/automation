@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-case-dialog',
@@ -7,7 +7,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddCaseDialogComponent {
   name = '';
-  constructor(private ref: MatDialogRef<AddCaseDialogComponent>) {}
+  constructor(private ref: MatDialogRef<AddCaseDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: { name?: string } | null) {
+    this.name = data?.name || '';
+  }
   save() { if (this.name.trim()) this.ref.close(this.name.trim()); }
 }
 

@@ -1,6 +1,28 @@
 .header {
   display: flex;
   align-items: center;
+  gap: 1rem;
+}
+.spacer { flex: 1; }
+.suite-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+}
+.case-list a.mat-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.header {
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
 .spacer { flex: 1; }

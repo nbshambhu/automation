@@ -37,5 +37,27 @@ export class SuitesComponent {
   openCase(suite: any, testCase: any): void {
     this.router.navigate(['/dashboard/tests/suite', suite.id, 'case', testCase.id]);
   }
+
+  renameSuite(suite: any): void {
+    this.dialog.open(AddSuiteDialogComponent, { data: { name: suite.name } }).afterClosed().subscribe(name => {
+      if (name) this.db.renameSuite(suite.id, name);
+    });
+  }
+
+  deleteSuite(suite: any): void {
+    const ok = confirm(`Delete suite "${suite.name}" and its cases?`);
+    if (ok) this.db.deleteSuite(suite.id);
+  }
+
+  renameCase(suite: any, testCase: any): void {
+    this.dialog.open(AddCaseDialogComponent, { data: { name: testCase.name } }).afterClosed().subscribe(name => {
+      if (name) this.db.renameCase(testCase.id, name);
+    });
+  }
+
+  deleteCase(suite: any, testCase: any): void {
+    const ok = confirm(`Delete test case "${testCase.name}"?`);
+    if (ok) this.db.deleteCase(suite.id, testCase.id);
+  }
 }
 

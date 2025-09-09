@@ -5,15 +5,26 @@
 </div>
 
 <div class="suites" *ngIf="vm$ | async as vm">
-  <div class="suite" *ngFor="let suite of vm">
-    <div class="suite-header">
-      <h3>{{suite.name}}</h3>
-      <button mat-stroked-button color="primary" (click)="addCase(suite)">+ Add Case</button>
+  <mat-nav-list>
+    <div class="suite" *ngFor="let suite of vm">
+      <div class="suite-header">
+        <span class="suite-name">{{suite.name}}</span>
+        <span class="actions">
+          <button mat-icon-button aria-label="Rename suite" (click)="renameSuite(suite)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button aria-label="Delete suite" (click)="deleteSuite(suite)"><mat-icon>delete</mat-icon></button>
+          <button mat-stroked-button color="primary" (click)="addCase(suite)">+ Add Case</button>
+        </span>
+      </div>
+      <div class="case-list">
+        <a mat-list-item *ngFor="let c of suite.cases">
+          <span class="case-name" (click)="openCase(suite, c)">{{c?.name}}</span>
+          <span class="actions">
+            <button mat-icon-button aria-label="Rename case" (click)="renameCase(suite, c)" (click)="$event.stopPropagation()"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button aria-label="Delete case" (click)="deleteCase(suite, c)" (click)="$event.stopPropagation()"><mat-icon>delete</mat-icon></button>
+          </span>
+        </a>
+      </div>
     </div>
-    <mat-nav-list>
-      <a mat-list-item *ngFor="let c of suite.cases" (click)="openCase(suite, c)">{{c?.name}}</a>
-    </mat-nav-list>
-  </div>
-  
+  </mat-nav-list>
 </div>
 
